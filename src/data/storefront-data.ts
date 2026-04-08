@@ -6,9 +6,9 @@ export const primaryNavItems = [
 ];
 
 export const overlayNavItems = [
-  { to: "#cakes", label: "Cakes" },
   { to: "#small-chops", label: "Small Chops" },
   { to: "#pastries", label: "Pastries" },
+  { to: "#cakes", label: "Cakes" },
   { to: "#gift-sets", label: "Gift Sets" },
-  { to: "#corporate-orders", label: "Corporate Orders" },
+  { to: "#corporate-orders", label: "Orders" },
 ];

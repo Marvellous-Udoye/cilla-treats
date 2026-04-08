@@ -86,9 +86,9 @@ export default function Feature() {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center overflow-hidden bg-black px-4 py-20 md:h-[100dvh] md:flex-row md:justify-center md:px-10">
-      <div id="cakes" className="flex h-full max-w-2xl w-full mx-auto flex-1/2 flex-col items-center">
-          <p className="feature-title-text relative font-bold text-4xl text-white md:text-6xl">
+    <div className="flex min-h-screen w-full flex-col items-center overflow-hidden bg-black px-4 py-16 md:h-[100dvh] md:flex-row md:justify-center md:px-10 md:py-20">
+      <div id="cakes" className="flex h-full w-full max-w-2xl mx-auto flex-1/2 flex-col items-center md:items-start">
+          <p className="feature-title-text relative text-center font-bold text-4xl text-white md:text-left md:text-6xl">
             Made to stand out on
             <span className="text-[#d94a63]"> every </span>
             table
@@ -103,15 +103,15 @@ export default function Feature() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d94a63] bg-[#b5162f]/10 text-[#f3a3b2]">
                   {index + 1}
                 </span>
-                <p className="feature-card-title font-bold text-xl">{item.title}</p>
+                <p className="feature-card-title text-lg font-bold md:text-xl">{item.title}</p>
               </div>
-              <p className="feature-card-description mt-3 pl-16 text-neutral-300">{item.desc}</p>
+              <p className="feature-card-description mt-3 pl-0 text-sm text-neutral-300 md:pl-16 md:text-base">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
       <div className="mt-10 flex w-full flex-1/2 items-center justify-center md:mt-0">
-        <img src="/imgs/treat-7.png" alt="headphone-image" className="max-w-[90vh] relative headphone-frame" />
+        <img src="/imgs/treat-7.png" alt="headphone-image" className="relative headphone-frame w-full max-w-[360px]" />
       </div>
     </div>
   );

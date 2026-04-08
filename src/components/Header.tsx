@@ -46,7 +46,7 @@ export default function Header() {
       ref={scopeRef}
       id="nav"
       className={`fixed inset-x-0 top-0 z-[120] overflow-hidden border-none backdrop-blur-sm transition-[height,background-color,backdrop-filter] duration-500 ${
-        isMenuOpen ? "h-screen bg-[#111318]" : "h-[108px]"
+        isMenuOpen ? "h-screen bg-[#111318]" : "h-16 sm:h-24"
       }`}
     >
       <SiteContainer className="flex items-start justify-between px-[2vw] pt-[1.5vw] max-[500px]:p-[4vw]">
@@ -127,10 +127,10 @@ export default function Header() {
       >
         <div className="nav-part-4" />
         <div className="nav-part-5" />
-        <div className="nav-part-3 pt-0 leading-[50px] max-[1000px]:leading-[40px] space-y-5">
+        <div className="nav-part-3 pt-0 leading-[50px] max-[1000px]:leading-[40px] space-y-4">
           {overlayNavItems.map((item) => (
             <h1
-              className={`cursor-pointer text-end text-3xl sm:text-[50px] font-extrabold uppercase leading-[50px] text-white transition-all duration-500 max-[1000px]:leading-[40px] ${
+              className={`cursor-pointer text-end text-[2rem] font-extrabold uppercase leading-[1] text-white transition-all duration-500 sm:text-[50px] sm:leading-[50px] max-[1000px]:leading-[40px] ${
                 isMenuOpen
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"

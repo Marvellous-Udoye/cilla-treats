@@ -104,25 +104,66 @@ export default function Feature3() {
       });
     });
 
+    mm.add("(max-width: 767px)", () => {
+      gsap.fromTo(
+        ".feature3-mobile-card",
+        {
+          opacity: 0,
+          y: 28,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".Feature3-central-image",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      gsap.fromTo(
+        ".feature3-mobile-image",
+        {
+          y: 0,
+          scale: 0.94,
+        },
+        {
+          y: 68,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".Feature3",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+    });
+
     return () => mm.revert();
   }, []);
 
   return (
     <section id="corporate-orders" className="Feature3 relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white px-4 py-16 text-black md:px-10 md:py-20">
-      <div className="mb-16 max-w-8xl text-center">
-        <h2 className="fade-up Feature3-title mb-4 font-semibold text-5xl tracking-tight md:text-9xl">
+      <div className="mb-12 max-w-8xl text-center md:mb-16">
+        <h2 className="fade-up Feature3-title mb-4 text-4xl font-semibold tracking-tight md:text-9xl">
           CURATED TO DELIGHT
         </h2>
-        <p className="fade-up mx-auto max-w-2xl text-lg text-gray-500">
+        <p className="fade-up mx-auto max-w-2xl text-base text-gray-500 md:text-lg">
           A closer look at the thoughtful details behind every cake box, platter, and gift package.
         </p>
       </div>
 
       <div className="Feature3-central-image relative flex w-full max-w-6xl flex-col items-center justify-center md:block">
         <img
-          src="/imgs/headphone-no-frame.svg"
+          src="/imgs/hero-bg.png"
           alt="Headphones"
-          className="relative z-10 w-[260px] md:mx-auto md:w-[420px]"
+          className="feature3-mobile-image relative z-10 w-[300px] md:mx-auto md:w-[420px]"
         />
 
         <svg
@@ -167,25 +208,25 @@ export default function Feature3() {
         <div ref={leftDotRef} className="absolute hidden h-3 w-3 rounded-full bg-black shadow-md md:block"></div>
 
         <div className="mt-10 grid w-full gap-4 md:hidden">
-          <div className="rounded-xl border border-gray-300 bg-white px-5 py-4 shadow-sm">
+          <div className="feature3-mobile-card rounded-[1.5rem] border border-[#b5162f]/10 bg-[#fff8f8] px-5 py-4 shadow-[0_18px_40px_rgba(181,22,47,0.08)]">
             <h3 className="mb-1 text-lg font-semibold">Custom Cake Orders</h3>
             <p className="max-w-[220px] text-sm text-gray-600">
               Buttercream cakes and celebration designs tailored for your moments.
             </p>
           </div>
-          <div className="rounded-xl border border-gray-300 bg-white px-5 py-4 shadow-sm">
+          <div className="feature3-mobile-card rounded-[1.5rem] border border-[#b5162f]/10 bg-white px-5 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.06)]">
             <h3 className="mb-1 text-lg font-semibold">Corporate Gifting</h3>
             <p className="max-w-[220px] text-sm text-gray-600">
               Well-presented treats and hampers for clients, teams, and branded occasions.
             </p>
           </div>
-          <div className="rounded-xl border border-gray-300 bg-white px-5 py-4 shadow-sm">
+          <div className="feature3-mobile-card rounded-[1.5rem] border border-[#b5162f]/10 bg-white px-5 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.06)]">
             <h3 className="mb-1 text-lg font-semibold">Pastry Selection</h3>
             <p className="max-w-[220px] text-sm text-gray-600">
               Doughnuts, banana bread, chicken pies, and dessert bites for every craving.
             </p>
           </div>
-          <div className="rounded-xl border border-gray-300 bg-white px-5 py-4 shadow-sm">
+          <div className="feature3-mobile-card rounded-[1.5rem] border border-[#b5162f]/10 bg-[#fff8f8] px-5 py-4 shadow-[0_18px_40px_rgba(181,22,47,0.08)]">
             <h3 className="mb-1 text-lg font-semibold">Event Platters</h3>
             <p className="max-w-[220px] text-sm text-gray-600">
               Small chops and party trays packed for easy serving and memorable hosting.

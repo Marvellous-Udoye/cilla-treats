@@ -17,8 +17,14 @@ export function createHeaderAnimations(
     const wordmark = scope.querySelector<HTMLElement>(".wordmark");
     const hiddenNavItems =
       scope.querySelectorAll<HTMLElement>(".nav-part-2 .none");
+    const navItems = scope.querySelectorAll<HTMLElement>(".nav-part-2 h4");
+    const menuTrigger = scope.querySelector<HTMLElement>("#menu-expand");
+    const shopTrigger = scope.querySelector<HTMLElement>("#shop");
     const overlayNavLinks =
       scope.querySelectorAll<HTMLElement>(".overlay-nav-link");
+    const darkSections = gsap.utils.toArray<HTMLElement>(
+      ".Feature2, .zoom-transition",
+    );
 
     const detachOverlayNavHover = Array.from(overlayNavLinks).map((link) => {
       const label = link.querySelector<HTMLElement>(".overlay-nav-label");
@@ -99,6 +105,36 @@ export function createHeaderAnimations(
       });
     }
 
+    if (nav && wordmark && darkSections.length) {
+      const setTone = (dark: boolean) => {
+        gsap.to(nav, {
+          backdropFilter: dark ? "blur(18px)" : "blur(12px)",
+          backgroundColor: dark
+            ? "rgba(17,19,24,0.34)"
+            : "rgba(255,255,255,0.05)",
+          duration: 0.24,
+          overwrite: "auto",
+        });
+        gsap.to([wordmark, navItems, menuTrigger, shopTrigger], {
+          color: dark ? "#ffffff" : "#000000",
+          duration: 0.2,
+          overwrite: "auto",
+        });
+      };
+
+      darkSections.forEach((section) => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top+=120",
+          end: "bottom top+=120",
+          onEnter: () => setTone(true),
+          onEnterBack: () => setTone(true),
+          onLeave: () => setTone(false),
+          onLeaveBack: () => setTone(false),
+        });
+      });
+    }
+
     return () => {
       detachOverlayNavHover.forEach((detach) => detach());
     };
@@ -115,6 +151,7 @@ export function createHeaderAnimations(
     gsap.to(nav, {
       height: "100vh",
       backgroundColor: "#111318",
+      backdropFilter: "blur(0px)",
       duration: 0.45,
       ease: "power2.inOut",
       overwrite: "auto",
@@ -152,7 +189,8 @@ export function createHeaderAnimations(
 
     gsap.to(nav, {
       height: "108px",
-      backgroundColor: "transparent",
+      backgroundColor: "rgba(255,255,255,0.05)",
+      backdropFilter: "blur(12px)",
       duration: 0.35,
       ease: "power2.inOut",
       overwrite: "auto",

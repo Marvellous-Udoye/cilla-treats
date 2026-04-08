@@ -91,8 +91,7 @@ export default function Feature2() {
 
     splitText(".scroll-color-text");
 
-    const textEls = gsap.utils.toArray<HTMLElement>(".scroll-color-text");
-    textEls.forEach((el) => {
+    gsap.utils.toArray<HTMLElement>(".scroll-color-text").forEach((el) => {
       const chars = el.querySelectorAll(".char");
 
       gsap
@@ -106,11 +105,15 @@ export default function Feature2() {
         })
         .to(chars, {
           y: "0%",
-          color: "#FFD700",
+          color: "#ffffff",
           stagger: 0.05,
           ease: "power2.out",
           duration: 0.8,
         });
+    });
+
+    gsap.set(".transition-overlay", {
+      transformOrigin: "center center",
     });
 
     gsap.utils.toArray<HTMLElement>(".float-img").forEach((img) => {
@@ -133,13 +136,13 @@ export default function Feature2() {
       });
     });
 
-    mm.add("(min-width: 768px)", () => {
+    const createZoomTimeline = (scaleTarget: number, overlayStartScale: number) => {
       const zoomTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".zoom-transition",
           start: "top top",
           end: "bottom top",
-          scrub: 2,
+          scrub: 1.6,
           pin: true,
         },
       });
@@ -147,17 +150,25 @@ export default function Feature2() {
       zoomTl.to(
         ".zoom-text",
         {
-          scale: 16,
+          scale: scaleTarget,
           ease: "power2.inOut",
           duration: 10,
         },
         0,
       );
+
       zoomTl
-        .to(
+        .fromTo(
           ".transition-overlay",
           {
-            scale: 1,
+            scaleX: overlayStartScale,
+            scaleY: 0.94,
+            opacity: 0.92,
+          },
+          {
+            scaleX: 1,
+            scaleY: 1,
+            opacity: 1,
             ease: "power2.inOut",
             duration: 10,
           },
@@ -177,39 +188,14 @@ export default function Feature2() {
           },
           "+=5",
         );
+    };
+
+    mm.add("(min-width: 768px)", () => {
+      createZoomTimeline(16, 0.1);
     });
 
     mm.add("(max-width: 767px)", () => {
-      gsap.fromTo(
-        ".zoom-text",
-        { scale: 0.88, opacity: 0.4 },
-        {
-          scale: 1,
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".zoom-transition",
-            start: "top 80%",
-            end: "bottom center",
-            scrub: true,
-          },
-        },
-      );
-
-      gsap.fromTo(
-        ".transition-overlay",
-        { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" },
-        {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          ease: "circ.inOut",
-          scrollTrigger: {
-            trigger: ".zoom-transition",
-            start: "top 65%",
-            end: "bottom center",
-            scrub: true,
-          },
-        },
-      );
+      createZoomTimeline(7.8, 0.18);
     });
 
     return () => {
@@ -229,21 +215,21 @@ export default function Feature2() {
         <div className="message-content relative z-20 mt-12 flex min-h-[52vh] w-full items-center justify-center overflow-hidden px-4 text-milk md:mt-20 md:min-h-[60vh] md:px-6">
           <div className="relative mx-auto flex w-full max-2xl:max-w-7xl items-center justify-center py-14 md:py-20">
             <div className="h-full w-full">
-              <div className="msg-wrapper flex flex-col items-center justify-center gap-10 text-[2.2rem] font-bold uppercase leading-[1] tracking-[-0.08em] md:gap-24 md:text-8xl 2xl:text-[8.5rem]">
+              <div className="msg-wrapper flex flex-col items-center justify-center gap-10 text-[2rem] font-bold uppercase leading-[1] tracking-[-0.08em] md:gap-24 md:text-8xl 2xl:text-[8.5rem]">
                 <h1 className="first-message max-w-[14rem] text-center text-[#f3f4f610] md:max-w-2xl 2xl:max-w-4xl">
                   Baked for sweet moments,
                 </h1>
                 <div
                   style={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-                  className="msg-text-scroll absolute z-10 -translate-y-2 rotate-[3deg] border-[.5vw] border-[#111318] text-[2rem] md:-translate-y-5 md:text-8xl 2xl:translate-y-5 2xl:text-[8.5rem] -mt-30 2xl:-mt-50"
+                  className="msg-text-scroll absolute z-10 -mt-18 -translate-y-2 rotate-[3deg] border-[.5vw] border-[#111318] text-[1.7rem] md:-mt-30 md:-translate-y-5 md:text-8xl 2xl:-mt-50 2xl:translate-y-5 2xl:text-[8.5rem]"
                 >
                   <div className="bg-[#c68c53] px-3 pb-2 text-white md:px-5 md:pb-5">
-                    <h2 className="font-head leading-none">
+                    <h2 className="font-head leading-none ">
                       packed for celebration.
                     </h2>
                   </div>
                 </div>
-                <h1 className="second-message max-w-[16rem] text-center text-[#f3f4f610] md:max-w-4xl 2xl:max-w-7xl pt-20 2xl:pt-30">
+                <h1 className="second-message max-w-[16rem] pt-14 text-center text-[#f3f4f610] md:max-w-4xl md:pt-20 2xl:max-w-7xl 2xl:pt-30">
                   Because every table deserves something beautiful and
                   delicious.
                 </h1>
@@ -268,7 +254,7 @@ export default function Feature2() {
             and layered parfaits are made to stand out at birthdays, thank-you
             gifts, and surprise deliveries.
           </p>
-          <div className="flex-1 flex justify-center">
+          <div className="flex flex-1 justify-center">
             <img
               src="/imgs/treat-6.png"
               alt=""
@@ -281,7 +267,7 @@ export default function Feature2() {
           id="pastries"
           className="div-sections flex flex-col items-center gap-8 p-4 md:flex-wrap md:flex-row md:gap-0 md:p-6"
         >
-          <div className="flex-1 flex justify-center">
+          <div className="flex flex-1 justify-center">
             <img
               src="/imgs/treat-5.png"
               alt=""
@@ -304,7 +290,7 @@ export default function Feature2() {
             Valentine gift sets are styled to feel thoughtful, festive, and
             ready to impress from first glance.
           </p>
-          <div className="flex-1 flex justify-center">
+          <div className="flex flex-1 justify-center">
             <img
               src="/imgs/treat-1.png"
               alt=""
@@ -314,13 +300,13 @@ export default function Feature2() {
         </div>
       </section>
 
-      <section className="zoom-transition relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-neutral-900 px-4 text-white md:h-screen md:min-h-0">
+      <section className="hidden zoom-transition relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-neutral-900 px-4 text-white md:h-screen md:min-h-0">
         <h1 className="zoom-text text-center font-head text-5xl uppercase md:text-8xl">
           Wrapped in Love by
         </h1>
         <div className="transition-overlay absolute left-[50%] top-0 z-50 flex h-full w-[72%] -translate-x-[50%] items-center justify-center bg-white px-4 md:w-[10%] md:-scale-5">
-          <h1 className="text-center font-head text-3xl font-bold text-black uppercase rotate-180 md:text-7xl">
-            Cilla Treats
+          <h1 className="text-center font-head text-3xl font-bold uppercase text-black rotate-180 md:text-7xl">
+            Cillia Treats
           </h1>
         </div>
       </section>
